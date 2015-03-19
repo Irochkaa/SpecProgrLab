@@ -1,0 +1,52 @@
+os.chdir('/home/ira/lab 1/python/VHI')
+path = os.getcwd()
+#download_vhi_files()
+data = read_csv(path)
+print_vhi_year(data, 13, 1994)
+print_vhi_extreme_drought(data, 13, 0.02)
+print_vhi_temperate_drought(data, 13, 0.02)
+province_first_week_SP(data)
+
+
+def province_first_week_SP(data):
+    list_1 = []
+    for id in id_list:
+        k= id -1
+        province_data = data[k]
+        list_2 = province_data.VHI[(province_data['week']==1)&(province_data['VHI'] >= 80)&
+        (province_data['VHI'] > 0)].tolist()
+        if len(list_2) > 0:
+            list_1.append(id)
+    print ', '.join(str(dict[i])for i in list_1)
+
+    print
+
+
+
+def read_csv(path_to_dir):
+    data = []
+    for id in id_list:
+        for filename in os.listdir(path_to_dir):
+            find = 'vhi_id_'+str(id)
+            if find is filename:
+                    df = pd.read_csv(filename, index_col=False, header=1)
+                    data.append(df)
+    return data
+
+
+os.chdir('/home/ira/lab 1/python/VHI')
+
+
+
+dict = {24: "Vinnytsya", 25: "Volyn", 5: "Dnipropetrovs'k",
+        6: "Donets'k", 27: "Zhytomyr", 23: "Transcarpathia",
+        26: "Zaporizhzhya", 7: "Ivano-Frankivs'k", 11: "Kiev",
+        13: "Kirovohrad", 14: "Luhans'k", 15: " L'viv",
+        16: "Mykolayiv", 17: "Odessa", 18: "Poltava",
+        19: " Rivne", 21: "Sumy", 22:"Ternopil'",
+        8: "Kharkiv", 9: "Kherson", 10:"Khmel'nyts'kyy",
+        1: "Cherkasy", 3: "Chernivci", 2:"Chernihiv",
+        4: "Crimea", 12: "Kiev City", 20: "Sevastopol"}
+
+
+id_list = [24, 25, 5, 6, 27, 23, 26, 7, 11, 13, 14, 15, 16, 17, 18, 19, 21, 22, 8, 9, 10, 1, 3, 2, 4, 12, 20]
